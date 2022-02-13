@@ -6,7 +6,8 @@ clc;
 m=0.7;          % masse de la bille (kg)
 r=0.035;        % rayon de la bille (m)
 eta=0.000018;   % coeff. de viscosité de l'air à 20°C (kg.m^-1.s^-1)
-gamma=6*pi*r*eta/m; % frottements (s^-1)
+gamma=1e-1;
+%gamma=6*pi*r*eta/m; % frottements (s^-1)
 gr=9.8;         % accéleration de la pesanteur (m.s^-2)
 l=2;            % longueur du fil (m)
 omega=sqrt(gr/l); % fréquence propre (rad.s^-1)
