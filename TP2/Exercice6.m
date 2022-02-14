@@ -26,7 +26,7 @@ g1=@(x,y,z,w)(-1*(G*M*(x./(x.^2+y.^2).^(3/2))));
 g2=@(x,y,z,w)(-1*(G*M*(y./(x.^2+y.^2).^(3/2))));
 
 % Paramètre de résolution
-h = .0035;
+h = .01;
 t = tmin:h:tmax;
 % Résolution par méthode d'EULER
 xEuler = zeros(1,length(t));yEuler=zeros(1,length(t));xpEuler = zeros(1,length(t));ypEuler = zeros(1,length(t));
@@ -42,7 +42,11 @@ end
 
 % affichage de la méthode d'Euler
 figure()
+hold on;
 plot(xEuler,yEuler);
+grid('on')
+plot(0,0,'*')
+title('euler')
 % hold on;
 % for i = 1:length(xEuler)
 %     h = plot(xEuler(i),yEuler(i),'or');
@@ -51,6 +55,15 @@ plot(xEuler,yEuler);
 % end
 
 %Résolution par méthode de Runge-Kutta
+axis('equal')
 [xRK,yRK,t]=RK4_2D_bis(x0,y0,x0p,y0p,tmin,tmax,h,f1,f2,g1,g2);
-figure()
 plot(xRK,yRK)
+grid('on')
+plot(0,0,'*')
+for i = 1:length(xEuler)
+    h1 = plot(xRK(i),yRK(i),'or');
+    h2 = plot(xEuler(i),yEuler(i),'ob');
+    pause(0.05)
+    delete(h1)
+    delete(h2)
+end
