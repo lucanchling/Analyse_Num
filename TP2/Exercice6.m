@@ -57,13 +57,20 @@ title('euler')
 %Résolution par méthode de Runge-Kutta
 axis('equal')
 [xRK,yRK,t]=RK4_2D_bis(x0,y0,x0p,y0p,tmin,tmax,h,f1,f2,g1,g2);
-plot(xRK,yRK)
+plot(xRK,yRK,'r')
 grid('on')
 plot(0,0,'*')
-for i = 1:length(xEuler)
-    h1 = plot(xRK(i),yRK(i),'or');
-    h2 = plot(xEuler(i),yEuler(i),'ob');
-    pause(0.05)
-    delete(h1)
-    delete(h2)
-end
+
+% Méthode de Euler-Richardson
+[xER,yER,pas]=Euler_Richardson(x0,y0,x0p,y0p,tmin,tmax,h,f1,f2,g1,g2);
+plot(xER,yER,'b')
+
+% for i = 1:length(xEuler)
+%     h1 = plot(xRK(i),yRK(i),'or');
+%     h2 = plot(xEuler(i),yEuler(i),'ob');
+%     h3 = plot(xER(i),yER(i),'ok');
+%     pause(0.05)
+%     delete(h1)
+%     delete(h2)
+%     delete(h3)
+% end
