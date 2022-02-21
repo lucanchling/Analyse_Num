@@ -43,4 +43,6 @@ Xstar = X*P;
 
 
 % Reconstruction Irec
-Irec = reshape(I,[size()])
+Irec = reshape(Xstar(:,1),[h,w]);
+
+imshow(Irec,[])
