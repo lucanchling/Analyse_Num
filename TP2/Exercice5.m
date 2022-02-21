@@ -29,7 +29,7 @@ theta0=2*pi/3;  % angle initial (rad)
 thetap0=0;      % vitesse angulaire initiale (rad/s)
 
 % Résolution par différentes méthodes
-methode = 'Euler'; % Choix de la méthode utilisée
+methode = 'RK2'; % Choix de la méthode utilisée
 switch methode
     case 'Euler'
         [theta,thetap,t] = Euler_2D(theta0,thetap0,tmin,tmax,pas,f,g);
