@@ -21,27 +21,48 @@ CFL_y=hy/(c*tau);
 nu=8;
 % condition initiale (le milieu est au repos à l'instant initial)
 f=zeros(nx,ny,m);
-
 clc;
-% Choix au niveau des fentes
-fprintf("Choix concernant le mode des fentes utilisé : \nMode 0 --> Sans Fente\nMode 1 --> Avec 1 Fente\nMode 2 --> Avec 2 fentes\n")
-
-fente = input("Mode : ") ;  % Choix du nombre de fentes
-switch fente
+fprintf("Choix du style d'obstacle:\nMode 0 --> Aucun\nMode 1 --> Fentes\nMode 2 --> Autres\n")
+style = input("Mode : ");
+clc;
+switch style
     case 0  % premier cas (sans rien)
-    case 1  % cas avec 1 fente
-        i_slit = [floor(nx/2),floor(nx/2)+1];
-        j_slit = [1:floor(ny/2)-3,floor(ny/2)+2:ny];
-    case 2 % cas 2 fentes
-        i_slit = [floor(nx/2),floor(nx/2)+1];
-        j_slit = [1:floor(ny/4)-3,floor(ny/4)+2:floor(3*ny/4)-3,floor(3*ny/4)+2:ny];      
+    case 1  % Pour des fentes
+    % Choix au niveau des fentes
+    fprintf("Choix concernant le mode des fentes utilise :\nMode 1 --> Avec 1 Fente\nMode 2 --> Avec 2 fentes\n")
+
+    fente = input("Mode : ") ;  % Choix du nombre de fentes
+    switch fente
+        
+        case 1  % cas avec 1 fente
+            i_slit = [floor(nx/2),floor(nx/2)+1];
+            j_slit = [1:floor(ny/2)-3,floor(ny/2)+2:ny];
+        case 2 % cas 2 fentes
+            i_slit = [floor(nx/2),floor(nx/2)+1];
+            j_slit = [1:floor(ny/4)-3,floor(ny/4)+2:floor(3*ny/4)-3,floor(3*ny/4)+2:ny];      
+    end
+    
+    case 2  % pour d'autres types d'obtacles
+        
+    % Choix au niveau des obstacles
+    fprintf("Choix concernant le mode des obstacles utilise : \nMode 1 --> Un Mur\nMode 2 --> Un Carrée\n")
+    obstacle=input("Mode : ");
+    switch obstacle
+        case 1  % Un mur simple
+            i_slit = [floor(nx/6),floor(nx/6)+1];
+            j_slit = (1:ny);
+        case 2  % Un carré
+            i_slit = [floor(nx/3):floor(nx/3)+35];
+            j_slit = [floor(ny/4):floor(ny/4)+35];
+    end
 end
+
 clc;
 % Choix au niveau des sources
 fprintf("Choix concernant le mode des sources utilisé : \nMode 1 --> Source fixe\nMode 2 --> 2 sources fixes\nMode 3 --> 1 source qui se téléporte\nMode 4 --> 1 source qui se déplace suivant 1 axe\n")
 source = input("Mode : ");
 % Temps d'arrêt pour la source 
-T_stop = input("Temps d'arret de la/des source(s) (=0 si aucun) = ");
+T_stop = input("Temps d'arret de la/des source(s) (=0 si aucun et < "+num2str(T)+"s) = ");
 if (T_stop == 0)
     T_stop = T;
 end
@@ -80,6 +101,7 @@ switch source
             i_s(k)=i_s(k-1)+dx;
         end
 end
+
 
 % Partie Calcul
 for k=2:m-2
