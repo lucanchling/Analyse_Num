@@ -3,7 +3,7 @@ clear variables;
 clc;
 
 parametre = input('Choisissez vos parametres :');
-switch parametre %On fait différents cas pour pouvoir changer les paramètres demandés
+switch parametre %On fait differents cas pour pouvoir changer les parametres demandes
     case 1
         phi=0;
         epsilon=1;
@@ -34,18 +34,17 @@ switch parametre %On fait différents cas pour pouvoir changer les paramètres d
 end 
     
 
-%Construction des signaux 
-        
-t=linspace(0,2*pi,100);
-sin1=sin(t);
+t=linspace(0,2*pi,100); % Vecteur Temps
+% DIfferents sinus
+sin1=sin(t);    
 sin2=epsilon*sin(t+phi);
-
+% Differents bruits 
 delta1=0.2.*rand(size(sin1));
 delta2=0.2.*rand(size(sin2));
-
-
+% Construction des signaux
 s1= sin1 + delta1;
 s2= sin2 + delta2;
+
 
 
 figure(1)
@@ -61,19 +60,22 @@ xlabel('s1')
 ylabel('s2')
 grid on
 
-%On construit la matrice Y d'étude grâce aux données des 2 signaux 
-%Puis on applique la méthode du cours: Matrice centrée, Matrice M de
+%On construit la matrice Y d'etude grâce aux donnees des 2 signaux 
+%Puis on applique la methode du cours: Matrice centree, Matrice M de
 %covariance puis de diagonalisation
+
+% Construction matrice de donnees
 Y=[s1',s2'];
+
 [n,m] = size(Y);
 X=Y- ones(n,1) * mean(Y);
 [n,m]=size(X);
 M=(1/n)*X'*X;
 [V,D]=eig(M);
 
-% On trie nos valeurs propres en ordre décroissant
+% On trie nos valeurs propres en ordre decroissant
 [lambda,indices]= sort(diag(D),'descend');
-P= V(:,indices);% On retrie nos vecteurs propres associés aux valeurs propres qui ont pu être déplacées
+P= V(:,indices);% On retrie nos vecteurs propres associes aux valeurs propres qui ont pu être deplacees
 Xstar=X*P;
 
 tau=1/sum(lambda)*lambda;% taux d'inertie
@@ -87,16 +89,16 @@ xlabel(['e1(' , num2str(100*tau(1)),'%)'])
 ylabel(['e2( ' , num2str(100*tau(2)),'%)'])
 grid on
 
-%Calcul du cercle des corrélations
-sigma=ones(n,1)*std(X); % Matrice centrée réduite
+%Calcul du cercle des correlations
+sigma=ones(n,1)*std(X); % Matrice centree reduite
 z=X./sigma;
 
 figure(3)
 hold on
 theta=0:0.01:2*pi;
-plot(cos(theta),sin(theta),'k') % Affichage du cercle unité 
+plot(cos(theta),sin(theta),'k') % Affichage du cercle unite 
 axis equal;
-title({'Cercle de Corrélation' , titre});
+title({'Cercle de Correlation' , titre});
 xlabel(['e1(' , num2str(100*tau(1)),'%)'])
 ylabel(['e2( ' , num2str(100*tau(2)),'%)'])
 grid on
@@ -156,7 +158,7 @@ xlabel('Nombre de Signaux')
 grid on
 subplot(1,2,2)
 plot(tau_cumu,'*')
-title('Taux d intertie cumulé')
+title('Taux d intertie cumule')
 xlabel('Nombre de Signaux')
 grid on
 
