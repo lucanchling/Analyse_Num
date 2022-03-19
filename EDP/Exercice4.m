@@ -62,7 +62,7 @@ clc;
 fprintf("Choix concernant le mode des sources utilise : \nMode 1 --> Source fixe\nMode 2 --> 2 sources fixes\nMode 3 --> 1 source qui se teleporte\nMode 4 --> 1 source qui se deplace suivant 1 axe\n")
 source = input("Mode : ");
 % Temps d'arrêt pour la source 
-T_stop = input("Temps d'arret de la/des source(s) (=0 si aucun et < "+num2str(T)+"s) = ");
+T_stop = input("Temps d'arret de la/des source(s) (mettre =0 si aucun souhaité et < "+num2str(T)+"s) = ");
 if (T_stop == 0)
     T_stop = T;
 end
